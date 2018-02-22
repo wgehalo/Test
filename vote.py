@@ -65,8 +65,12 @@ def vote_once():
         return None
 
     # Get the vote key
-    voteKey = re.search("type=\"hidden\" id=\"voteKey\" value=\"(.*?)\"",init.text).group(1)
-    votePath = "/common/ajax/vote.php?voteKey="+str(voteKey)+"&email=&c=" + str(random.random())
+    try:
+        voteKey = re.search("type=\"hidden\" id=\"voteKey\" value=\"(.*?)\"",init.text).group(1)
+        votePath = "/common/ajax/vote.php?voteKey="+str(voteKey)+"&email=&c=" + str(random.random())
+    except:
+        print("Couldn't find vote key.")
+        return None
 
     # Build the GET url to vote
     request = "https://www.10best.com" + votePath
